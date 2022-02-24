@@ -6,6 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import PrivacyTipRoundedIcon from "@mui/icons-material/PrivacyTipRounded";
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import "../style/home.scss";
 
 const Menues = () => {
@@ -24,7 +25,17 @@ const Menues = () => {
             <ListItemText primary="Dashboard" style={{ color: "black" }} />
           </ListItemButton>
         </Link>
-
+         <Link
+          to="/users"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <ListItemButton className="menu_background">
+            <ListItemIcon>
+              <GroupRoundedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" style={{ color: "black" }} />
+          </ListItemButton>
+        </Link>
         <Link
           to="/privacy-policy"
           style={{ textDecoration: "none", color: "black" }}
@@ -36,6 +47,7 @@ const Menues = () => {
             <ListItemText primary="Privacy Policy" style={{ color: "black" }} />
           </ListItemButton>
         </Link>
+        
       </List>
     </div>
   );

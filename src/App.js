@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./component/Login";
 import ProtectedRoute from "./component/ProtectedRoute";
 import PrivacyPolicy from "./view/PrivacyPolicy";
+import UserDetails from './view/UserDetails';
+import Users from './view/Users'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/home/:userId/:userName" element={<UserDetails/>}/>
+          <Route path="/users" element={<Users/>}/>
         </Route>
       </Routes>
     </div>

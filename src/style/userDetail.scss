@@ -1,0 +1,10 @@
+@import './dashboard';
+.userDetails_div{
+    @include main_div();
+
+}
+.user_mood_chart{
+    background-color: #ffff;
+    padding: 20px;
+    border-radius: 20px;
+}

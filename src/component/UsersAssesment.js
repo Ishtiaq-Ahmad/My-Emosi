@@ -90,9 +90,9 @@ const UsersAssesment = () => {
           Questions
         </Typography>
 
-        {foodItem.map((item) => {
+        {foodItem.map((item,index) => {
           return (
-            <div>
+            <div key={item.index}>
               <Divider className="food_detail" />
               <div
                 style={{

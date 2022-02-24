@@ -1,0 +1,12 @@
+@import './dashboard';
+.users_div{
+    @include main_div();
+
+
+}
+.user_head{
+   
+    background-color: #ffff;
+    padding: 20px;
+    border-radius: 4px;
+}

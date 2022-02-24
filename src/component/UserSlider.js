@@ -7,11 +7,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import _User from "../assets/images/user.jfif";
-import Ibrahim from "../assets/images/ibrahim.jpeg";
-import Ishtiaq from "../assets/images/ishtiaq.jpeg";
-import Haseeb from "../assets/images/haseeb.jpeg";
 import Button from "@mui/material/Button";
+import { Link} from "react-router-dom";
+import {userContent} from './UserData';
 
 import "../style/dashboard.scss";
 
@@ -53,82 +51,7 @@ const responsive = {
     slidesToSlide: 1,
   },
 };
-const userData = [
-  {
-    userImage: _User,
-    userName: "Shane worn",
-    cardColor: "#78cfe1",
-  },
-  {
-    userImage:
-      "https://dwpdigital.blog.gov.uk/wp-content/uploads/sites/197/2016/07/P1090594-1.jpeg",
-    userName: "Melinda",
-    cardColor: "#df5b61",
-  },
-  {
-    userImage:
-      "https://htmlstream.com/preview/unify-v2.6/assets/img-temp/400x450/img5.jpg",
-    userName: "USER nAME",
-    cardColor: "#f8b018",
-  },
-  {
-    userImage:
-      "https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg",
-    userName: "User Name",
-    cardColor: "#C46851",
-  },
-  {
-    userImage:
-      "https://likewise-stage.azureedge.net/uploads/3eb6cf23-895b-45e9-b92c-5fb1b457dd04/bill-gates-profile-pic.jpg",
-    userName: "Bill Gates",
-    cardColor: "#c76493",
-  },
-  {
-    userImage:
-      "https://pbs.twimg.com/profile_images/1265739080995934209/tWbXGpx8_400x400.jpg",
-    userName: "USER nAME",
-    cardColor: "#9A8BB7",
-  },
-  {
-    userImage:
-      "https://www.1000islandsplayhouse.com/assets/Buddy-Scott-Carmichael.jpg",
-    userName: "USER nAME",
-    cardColor: "#78cfe1",
-  },
-  {
-    userImage:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80",
-    userName: "USER nAME",
-    cardColor: "#df5b61",
-  },
-  {
-    userImage:
-      "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80",
-    userName: "USER nAME",
-    cardColor: "#f8b018",
-  },
-  {
-    userImage:
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    userName: "USER nAME",
-    cardColor: "#C46851",
-  },
-  {
-    userImage: Ibrahim,
-    userName: "Ibrahim",
-    cardColor: "#c76493",
-  },
-  {
-    userImage: Haseeb,
-    userName: "Haseeb",
-    cardColor: "#9A8BB7",
-  },
-  {
-    userImage: Ishtiaq,
-    userName: "Ishtiaq",
-    cardColor: "#78cfe1",
-  },
-];
+
 const UserSlider = () => {
   return (
     <div
@@ -144,8 +67,8 @@ const UserSlider = () => {
       </Typography>
       <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
       <Carousel responsive={responsive} showDots={true}>
-        {userData.map((ele) => (
-          <div className="profileCard" style={{ margin: "0px 10px 0px 10px" }}>
+        {userContent.map((ele, index) => (
+          <div key={ele.userId} className="profileCard" style={{ margin: "0px 10px 0px 10px" }}>
             <Card sx={{ borderRadius: "16px !important" }}>
               <CardActionArea>
                 <CardMedia
@@ -160,14 +83,15 @@ const UserSlider = () => {
                   <Typography gutterBottom variant="h6" component="div">
                     {ele.userName}
                   </Typography>
-
-                  <Button
-                    variant="text"
-                    size="small"
-                    style={{ color: "black" }}
-                  >
-                    View Details{" "}
-                  </Button>
+                  <Link to={`/home/${ele.userId}/${ele.userName}`} style={{ textDecoration: "none", color: "black" }}>
+                    <Button
+                      variant="text"
+                      size="small"
+                      style={{ color: "black" }}
+                    >
+                      View Details
+                    </Button>
+                  </Link>
                 </CardContent>
               </CardActionArea>
             </Card>
