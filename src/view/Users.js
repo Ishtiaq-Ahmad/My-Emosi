@@ -106,8 +106,6 @@ const Users = () => {
                   <Grid item xs={2} >
                   
  <Button variant="outlined" size="small"  style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>View Detail</Button>
-                  
-                   
                   </Grid>
                   
                 </Grid>

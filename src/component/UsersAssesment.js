@@ -9,6 +9,7 @@ import EditOffIcon from "@mui/icons-material/EditOff";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import AddQuestion from "../component/AddQuestion";
+import {userQuestion} from '../component/UserData';
 
 const foodItem = [
   {
@@ -90,7 +91,7 @@ const UsersAssesment = () => {
           Questions
         </Typography>
 
-        {foodItem.map((item,index) => {
+        {userQuestion.map((item,index) => {
           return (
             <div key={item.index}>
               <Divider className="food_detail" />

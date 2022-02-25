@@ -10,6 +10,10 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import { Link} from "react-router-dom";
 import {userContent} from './UserData';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
 import "../style/dashboard.scss";
 

@@ -96,3 +96,21 @@ export const userContent = [
     userEmail: 'usermail@gmail.com'
   },
 ]
+export const userQuestion =[
+  {
+    user_question: "Little interest or pleasure in doing things?",
+  },
+  {
+    user_question: "Little interest or pleasure in doing things?",
+  },
+  {
+    user_question: "Moving or speaking so slowly that other people could have noticed.Or, the opposite -being so fidgety or restless that you have been moving around a lot more than usaual?",
+  },
+  {
+    user_question: "Moving or speaking so slowly that other people could have noticed. or, the opposite .being so fidgety or restless that you have been moving arond a lot more then usual?",
+  },
+  {
+    user_question: "Thoughts that you would be better off dead or of hurting yourself?",
+  },
+
+]

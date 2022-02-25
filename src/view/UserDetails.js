@@ -10,6 +10,9 @@ import { CardActionArea } from "@mui/material";
 import _User from '../assets/images/user2.jpg'
 import Grid from '@mui/material/Grid';
 import UserMood from '../component/User/UserMood'
+import Accoridan from '../component/User/Accoridan';
+import DailyGoals from '../component/User/DailyGoals'
+
 
 
 const UserDetails = () => {
@@ -20,7 +23,7 @@ const UserDetails = () => {
     <Sidebars/>
      <Grid container spacing={10}>
         <Grid item xs={4}>
-       <Card sx={{ borderRadius: "16px !important" }}>
+       <Card sx={{ borderRadius: "16px !important",  border:'1px solid #bafffc' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -38,10 +41,12 @@ const UserDetails = () => {
              
                 </CardContent>
               </CardActionArea>
+             <DailyGoals/>
             </Card>
         </Grid>
         <Grid item xs={8}>
          <UserMood/>
+         <Accoridan/>
         </Grid>
         
       </Grid>
