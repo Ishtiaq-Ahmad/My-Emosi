@@ -8,12 +8,9 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {userContent} from './UserData';
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+
 
 import "../style/dashboard.scss";
 
@@ -57,6 +54,10 @@ const responsive = {
 };
 
 const UserSlider = () => {
+   let navigate = useNavigate();
+   const handleOpen = () => {
+      navigate('/users')
+}
   return (
     <div
       style={{
@@ -66,9 +67,23 @@ const UserSlider = () => {
         padding: "10px 10px 40px 10px",
       }}
     >
+    <div style={{display:'flex', justifyContent:"space-between", alignItems:"center"}}>
       <Typography variant="h6" component="div" gutterBottom>
         All Users
       </Typography>
+        <Button
+          variant="contained"
+          onClick={handleOpen}
+          style={{
+            float: "right",
+            margin: "10px",
+            color: "black",
+            backgroundColor: "#bafffc",
+          }}
+        >
+          See all users
+        </Button>
+        </div>
       <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
       <Carousel responsive={responsive} showDots={true}>
         {userContent.map((ele, index) => (
