@@ -54,7 +54,7 @@ const UserDetails = () => {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 };
 
 export default UserDetails;
