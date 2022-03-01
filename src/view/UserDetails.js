@@ -12,10 +12,13 @@ import Grid from "@mui/material/Grid";
 import UserMoodChart from "../component/User/UserMoodChart";
 import Accoridan from "../component/User/Accoridan";
 import DailyGoals from "../component/User/DailyGoals";
+import {userContent} from '../component/UserData'
 
 const UserDetails = () => {
   const params = useParams();
   const { userName } = params;
+  const user = userContent.find(user => user.userName === userName);
+  const {userEmail, userImage} = user;
   return (
     <div className="userDetails_div">
       <Sidebars />
@@ -31,7 +34,7 @@ const UserDetails = () => {
               <CardMedia
                 component="img"
                 height="280"
-                image={_User}
+                image={userImage}
                 alt="green iguana"
               />
               <CardContent>
@@ -39,7 +42,7 @@ const UserDetails = () => {
                   {userName}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                  username@gmail.com
+                  {userEmail}
                 </Typography>
               </CardContent>
             </CardActionArea>
