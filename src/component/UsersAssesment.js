@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -10,32 +10,43 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import AddQuestion from "../component/AddQuestion";
 import {userQuestion} from '../component/UserData';
+import { getFirestore } from '@firebase/firestore'
+import Firebase from '../firebase'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot
+} from "firebase/firestore";
+const db = getFirestore(Firebase)
 
-const foodItem = [
-  {
-    user_question: "Little interest or pleasure in doing things?",
-  },
-  {
-    user_question: "Little interest or pleasure in doing things?",
-  },
-  {
-    user_question:
-      "Moving or speaking so slowly that other people could have noticed.Or, the opposite -being so fidgety or restless that you have been moving around a lot more than usaual?",
-  },
-  {
-    user_question:
-      "Moving or speaking so slowly that other people could have noticed. or, the opposite .being so fidgety or restless that you have been moving arond a lot more then usual?",
-  },
-  {
-    user_question:
-      "Thoughts that you would be better off dead or of hurting yourself?",
-  },
-];
+
 const UsersAssesment = () => {
   const [_open, setOpen] = useState(false);
   const _handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const [questions,setQuestions] = useState([])
 
+  useEffect(() => {
+    const getQuestions = async () => {
+      onSnapshot(collection(db, "Assessments"), (snapshot) => {
+        // console.log(snapshot.docs)
+        let arr = []
+        snapshot.docs.forEach((doc) => {
+          doc.data().AssessmentsData.forEach((item)=>{
+            arr.push({question:item.question})
+          })
+          setQuestions([...arr])
+        })
+      })
+
+    };
+
+    getQuestions();
+  }, []);
   const style = {
     position: "absolute",
     top: "50%",
@@ -91,7 +102,7 @@ const UsersAssesment = () => {
           Questions
         </Typography>
 
-        {userQuestion.map((item,index) => {
+        {questions.map((item,index) => {
           return (
             <div key={item.index}>
               <Divider className="food_detail" />
@@ -108,9 +119,9 @@ const UsersAssesment = () => {
                   gutterBottom
                   style={{ marginLeft: "5px" }}
                 >
-                  {item.user_question}
+                  {item.question}
                 </Typography>
-                <div style={{ display: "flex" }}>
+                {/* <div style={{ display: "flex" }}>
                   <IconButton
                     aria-label="delete"
                     size="large"
@@ -131,7 +142,7 @@ const UsersAssesment = () => {
                       style={{ color: "#e0496c" }}
                     />
                   </IconButton>
-                </div>
+                </div> */}
               </div>
             </div>
           );

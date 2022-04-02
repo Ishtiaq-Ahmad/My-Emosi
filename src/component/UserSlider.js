@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card from "@mui/material/Card";
@@ -8,11 +8,23 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import { Link, useNavigate} from "react-router-dom";
-import {userContent} from './UserData';
-
-
+import { Link, useNavigate } from "react-router-dom";
+import { userContent } from './UserData';
+import { getFirestore } from '@firebase/firestore'
 import "../style/dashboard.scss";
+
+import Firebase from '../firebase'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot
+} from "firebase/firestore";
+const db = getFirestore(Firebase)
+
 
 const responsive = {
   superLargeDesktop: {
@@ -54,10 +66,26 @@ const responsive = {
 };
 
 const UserSlider = () => {
-   let navigate = useNavigate();
-   const handleOpen = () => {
-      navigate('/users')
-}
+
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    const getUsers = async () => {
+      onSnapshot(collection(db, "userData"), (snapshot) => {
+        let arr = []
+        snapshot.docs.forEach((doc) => {
+          arr.push(doc.data())
+          setUsers([...arr])
+        })
+      })
+
+    };
+
+    getUsers();
+  }, []);
+  let navigate = useNavigate();
+  const handleOpen = () => {
+    navigate('/users')
+  }
   return (
     <div
       style={{
@@ -67,10 +95,10 @@ const UserSlider = () => {
         padding: "10px 10px 40px 10px",
       }}
     >
-    <div style={{display:'flex', justifyContent:"space-between", alignItems:"center"}}>
-      <Typography variant="h6" component="div" gutterBottom>
-        All Users
-      </Typography>
+      <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
+        <Typography variant="h6" component="div" gutterBottom>
+          All Users
+        </Typography>
         <Button
           variant="contained"
           onClick={handleOpen}
@@ -83,26 +111,26 @@ const UserSlider = () => {
         >
           See all users
         </Button>
-        </div>
+      </div>
       <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
       <Carousel responsive={responsive} showDots={true}>
-        {userContent.map((ele, index) => (
-          <div key={ele.userId} className="profileCard" style={{ margin: "0px 10px 0px 10px" }}>
+        {users?.map((ele, index) => (
+          <div key={ele?.userID} className="profileCard" style={{ margin: "0px 10px 0px 10px" }}>
             <Card sx={{ borderRadius: "16px !important" }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="120"
-                  image={ele.userImage}
+                  image={ele?.image?ele.image:'https://randomuser.me/api/portraits/lego/1.jpg'}
                   alt="green iguana"
                 />
                 <CardContent
-                  style={{ background: ele.cardColor, color: "#ffff" }}
+                  style={{ background:'#78cfe1', color: "#ffff" }}
                 >
                   <Typography gutterBottom variant="h6" component="div">
-                    {ele.userName}
+                    {ele?.FirstName}
                   </Typography>
-                  <Link to={`/home/${ele.userId}/${ele.userName}`} style={{ textDecoration: "none", color: "black" }}>
+                  <Link to={`/home/${ele?.userID}/${ele?.FirstName}`} style={{ textDecoration: "none", color: "black" }}>
                     <Button
                       variant="text"
                       size="small"

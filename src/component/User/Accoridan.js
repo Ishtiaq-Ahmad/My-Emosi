@@ -7,25 +7,27 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { userQuestion } from "../UserData";
 
-const Accoridan = () => {
-  const accodianQuestion = userQuestion.map((ele) => (
+const Accoridan = ({ data }) => {
+  const accodianQuestion = data.map((ele) => (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>{ele.user_question}</Typography>
+        <Typography>{ele.question}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
-          <strong> Lorem ipsum dolor sit amet</strong>
+          <strong>{ele.selectedOption.Title}</strong>
         </Typography>
       </AccordionDetails>
     </Accordion>
   ));
   return (
     <div className="accordian">
+      {
+        data ? 
       <Typography
         variant="h6"
         gutterBottom
@@ -34,7 +36,21 @@ const Accoridan = () => {
       >
         User's Questions Answers
       </Typography>
-      <div style={{ height: "35vh", overflow: "auto" }}>{accodianQuestion}</div>
+      :
+      <Typography
+      variant="h6"
+      gutterBottom
+      component="div"
+      sx={{ marginLeft: "15px" }}
+    >
+      Questions Not Answered
+    </Typography>
+      }
+      {data ?
+        <div style={{ height: "35vh", overflow: "auto" }}>{accodianQuestion}</div>
+        :
+        null
+      }
     </div>
   );
 };

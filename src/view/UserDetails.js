@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebars from "../component/Sidebars";
 import "../style/userDetail.scss";
 import { useParams } from "react-router-dom";
@@ -11,18 +11,47 @@ import Grid from "@mui/material/Grid";
 import UserMoodChart from "../component/User/UserMoodChart";
 import Accoridan from "../component/User/Accoridan";
 import DailyGoals from "../component/User/DailyGoals";
-import {userContent} from '../component/UserData'
+import { userContent } from '../component/UserData'
+import Firebase from '../firebase'
+import { getFirestore } from '@firebase/firestore'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  onSnapshot
+} from "firebase/firestore";
+const db = getFirestore(Firebase)
 
 const UserDetails = () => {
   const params = useParams();
-  const { userName } = params;
-  const user = userContent.find(user => user.userName === userName);
-  const {userEmail, userImage} = user;
+  const { userId } = params;
+
+
+  const [user, setUser] = useState([])
+  useEffect(() => {
+    // console.log(params)
+    const getUser = async () => {
+      onSnapshot(collection(db, "userData"), (snapshot) => {
+        let arr = []
+        snapshot.docs.forEach((doc) => {
+          if (doc.data().userID == userId) {
+            arr.push(doc.data())
+            setUser([...arr])
+          }
+        })
+      })
+    };
+
+    getUser();
+  }, []);
   return (
     <div className="userDetails_div">
       <Sidebars />
-      <Grid container spacing={{sm: 1,md: 4, lg: 10}} >
-        <Grid item sm={12} md={4} sx={{marginBottom:'20px', marginTop:'10px'}}>
+      <Grid container spacing={{ sm: 1, md: 4, lg: 10 }} >
+        <Grid item sm={12} md={4} sx={{ marginBottom: '20px', marginTop: '10px' }}>
           <Card
             sx={{
               borderRadius: "16px !important",
@@ -33,15 +62,15 @@ const UserDetails = () => {
               <CardMedia
                 component="img"
                 height="280"
-                image={userImage}
+                image={user[0]?.image ? user[0]?.image : 'https://randomuser.me/api/portraits/lego/1.jpg'}
                 alt="green iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
-                  {userName}
+                  {user[0]?.FirstName}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                  {userEmail}
+                  {user[0]?.Email}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -50,7 +79,11 @@ const UserDetails = () => {
         </Grid>
         <Grid item sm={12} md={8}>
           <UserMoodChart />
-          <Accoridan />
+          {
+            user[0]?.Ans ?
+              <Accoridan data={user[0]?.Ans} />
+              : null
+          }
         </Grid>
       </Grid>
     </div>

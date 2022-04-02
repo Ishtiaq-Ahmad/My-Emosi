@@ -12,19 +12,10 @@ import LoingImgae from "../assets/images/myEmosiLoginImage.png";
 import MyEmosiLogo from "../assets/images/myEmosi_logo.png";
 import { initializeApp } from "firebase/app";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-const firebaseConfig = {
-  apiKey: "AIzaSyByanGPc_ZnkVN8L2TlC03jLCyhGh_D_gY",
-  authDomain: "refinedmh.firebaseapp.com",
-  projectId: "refinedmh",
-  storageBucket: "refinedmh.appspot.com",
-  messagingSenderId: "110422148240",
-  appId: "1:110422148240:web:f4c6926fbc9fd0ddc88415",
-  measurementId: "G-C4TYK25M80"
-};
-
+import Firebase from '../firebase'
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
+const auth = getAuth(Firebase);
 
 const Login = () => {
   const navigate = useNavigate();
